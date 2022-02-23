@@ -1,0 +1,13 @@
+#!/bin/bash
+
+tmpfile=/tmp/.hosts
+rm -f $tmpfile
+
+for file in $@; do
+        egrep -o  "http(s|)://([A-z0-9]*\.|)[A-z0-9]*\.[A-z0-9]*(|\.[A-z0-9]*)" $file >> $tmpfile
+done
+
+sed -e 's|https://||g' -i $tmpfile
+sed -e 's|http://||g' -i $tmpfile
+
+sort $tmpfile | uniq  
