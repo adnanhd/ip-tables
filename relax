@@ -1,0 +1,21 @@
+#!/bin/bash
+
+version='1.0.0'
+bakfile=/home/adnanhd/.all.hosts.bak
+tmpfile=/tmp/.all.hosts.tmp
+hstfile=/etc/all.hosts.cfg
+lockfile=/home/adnanhd/.all.hosts.lock
+verbose=0
+
+sudo iptables -P INPUT ACCEPT
+sudo iptables -P OUTPUT ACCEPT
+sudo iptables -P FORWARD ACCEPT
+
+sudo iptables-restore < $bakfile
+rm -f $lockfile
+
+sudo iptables -F INPUT
+sudo iptables -F OUTPUT
+sudo iptables -F FORWARD
+
+
